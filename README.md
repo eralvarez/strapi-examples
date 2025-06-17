@@ -1,1 +1,1 @@
-# strapi-examples
+# Strapi v5 examples
