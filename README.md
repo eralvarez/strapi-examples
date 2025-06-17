@@ -3,7 +3,7 @@
 
 ## Controllers
 
-Controller with context types:
+### Controller with context types:
 
 ```javascript
 import { factories } from '@strapi/strapi';
@@ -21,6 +21,29 @@ export default factories.createCoreController('api::process.process', {
     } catch (error) {
       const errorMessage = error.message ?? 'Invalid payload';
       strapi.log.error('Create error', errorMessage);
+      ctx.badRequest(errorMessage);
+      return;
+    }
+  },
+});
+```
+
+### Controller with update param:
+
+```javascript
+import { factories } from '@strapi/strapi';
+import { Context } from 'koa';
+
+export default factories.createCoreController('api::process.process', {
+  async update(ctx: Context) {
+    try {
+      const processDocumentId = ctx.params.id;
+      
+      ...
+      ctx.ok({ data: process, meta: {} });
+    } catch (error) {
+      const errorMessage = error.message ?? 'Invalid payload';
+      strapi.log.error('Update error', errorMessage);
       ctx.badRequest(errorMessage);
       return;
     }
